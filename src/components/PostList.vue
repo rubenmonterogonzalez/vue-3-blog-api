@@ -1,0 +1,13 @@
+<template>
+  <div v-for="post in posts" :key="post.id" class="m-auto">
+    <SinglePost :post="post" />
+  </div>
+</template>
+
+<script>
+import SinglePost from "./SinglePost.vue";
+export default {
+  props: ["posts"],
+  components: { SinglePost },
+};
+</script>
