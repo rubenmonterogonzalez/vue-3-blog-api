@@ -1,5 +1,5 @@
 <template>
-  <div v-for="post in posts" :key="post.id" class="m-auto">
+  <div v-for="post in posts" :key="post.id">
     <SinglePost :post="post" />
   </div>
 </template>

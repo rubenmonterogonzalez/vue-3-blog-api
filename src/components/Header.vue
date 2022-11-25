@@ -7,11 +7,13 @@ export default {
 </script>
 
 <template>
-  <nav>
-    <RouterLink to="/">
-      <h1 class="text-2xl text-center font-bold underline text-green-700 pt-10">
-        Ruben's Blog
-      </h1>
-    </RouterLink>
-  </nav>
+  <header class="h-16 flex justify-between pt-3 px-5 shadow-md">
+    <h1 class="text-2xl font-bold text-green-700">
+      Ruben's Blog
+    </h1>
+    <nav class="pt-2">
+      <RouterLink class="font-bold text-gray-400 mr-3" to="/">Blog</RouterLink>
+      <RouterLink class="font-bold text-gray-400" to="/create">Create Post</RouterLink>
+    </nav>
+  </header>
 </template>

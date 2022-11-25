@@ -6,7 +6,7 @@
     </div>
     <div class="px-[4%] container m-auto grid" v-if="posts.length">
       <div>
-        <PostList :posts="posts" />
+        <PostList :posts="postsWithTag" />
       </div>
       <TagCloud :posts="posts" />
     </div>
@@ -17,30 +17,37 @@
 </template>
 
 <script>
-import { watchEffect } from "vue";
-import PostList from "../components/PostList.vue";
-import Spinner from "../components/Spinner.vue";
 import Header from "../components/Header.vue";
+import Spinner from "../components/Spinner.vue";
+import PostList from "../components/PostList.vue";
 import { getPosts } from "../composables/getPosts";
+import { watchEffect } from "vue";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 import TagCloud from "../components/TagCloud.vue";
 
 export default {
-  name: "Home",
+  name: "Tag",
   components: {
-    PostList,
-    Spinner,
     Header,
+    Spinner,
+    PostList,
     TagCloud,
   },
-
   setup() {
+    const route = useRoute();
+
     const { posts, error, load } = getPosts();
 
     watchEffect(() => {
       load();
     });
 
-    return { posts, error };
+    const postsWithTag = computed(() => {
+      return posts.value.filter((post) => post.tags.includes(route.params.tag));
+    });
+
+    return { posts, error, postsWithTag };
   },
 };
 </script>

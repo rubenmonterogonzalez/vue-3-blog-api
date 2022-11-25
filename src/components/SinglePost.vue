@@ -25,6 +25,6 @@ export default {
     });
     return { snippet };
   },
-  components: { RouterLink, RouterLink },
+  components: {},
 };
 </script>

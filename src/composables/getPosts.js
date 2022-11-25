@@ -8,15 +8,15 @@ export const getPosts = () => {
     try {
       
       await new Promise(resolve => {
-        setTimeout(resolve, 2000);
+        setTimeout(resolve, 500);
       })
 
-      const res = await fetch("https://dummyjson.com/posts");
+      const res = await fetch("http://localhost:3000/posts/");
       if (!res.ok) {
         throw Error("No Data Available");
       }
       const data = await res.json();
-      posts.value = data.posts.slice(0, 10);
+      posts.value = data.sort((a, b) => b.id - a.id);
     } catch (err) {
       error.value = err.message;
       console.log(error.value);

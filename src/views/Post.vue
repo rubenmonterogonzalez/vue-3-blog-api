@@ -4,7 +4,7 @@
     <div class="px-20 container m-auto" v-if="error">
       {{ error }}
     </div>
-    <div v-if="post" class="px-20 container m-auto">
+    <div v-if="isLoading" class="px-20 container m-auto">
       <h3 class="font-bold text-lg mt-5 text-green-700">
         {{ post.title }}
       </h3>
@@ -22,11 +22,12 @@
   </section>
 </template>
 
-<script>
+<script lang="js">
 import Header from "../components/Header.vue";
 import Spinner from "../components/Spinner.vue";
 import { watchEffect } from "vue";
 import { getSinglePost } from "../composables/getSinglePost";
+import { useRoute } from "vue-router";
 
 export default {
   name: "Post",
@@ -36,13 +37,15 @@ export default {
   },
   props: ["id"],
   setup(props) {
-    const { post, error, load } = getSinglePost(props.id);
-    console.log(post);
+    const route = useRoute();
+    
+    const { post, error, load, isLoading } = getSinglePost(route.params.id);
+
     watchEffect(() => {
       load();
     });
 
-    return { post, error };
+    return { post, error, isLoading };
   },
 };
 </script>
